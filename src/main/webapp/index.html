@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<title>Home</title>
+</head>
+<body class="lift:content_id=main">
+<div id="main" data-lift="surround?with=default;at=content">
+    <section>
+        <header><h1>Learning lift...</h1></header>
+        <div class="panel">
+            <ul>
+                <li>using ajax snippet</li>
+                <li>render table, which can be manipulated</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section>
+        <h4>Create new article</h4>
+        <form data-lift="form.ajax">
+            <div data-lift="CreateArticle">
+                <label>Title:</label>
+                <input name="title" type="text" placeholder="Please enter a title"></input>
+                <label>Content:</label>
+                <textarea name="content" placeholder="Please enter a content"></textarea>
+
+				<button name="create-button" class="button" type="submit">save</button>
+                <span data-lift="Msg?id=both&errorClass=error%20alert%20label">error</span>
+            </div>
+        </form>
+    </section>    
+    
+    <section>
+        <h4>Existing articles</h4>        
+        <form data-lift="form.ajax">
+            <div data-lift="EditArticles">
+				<table id="article-table" class="twelve">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Title</th>
+							<th>Content</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody id="article-rows">
+						<tr>
+							<td><input name="id" type="text" disabled="disabled"></input></td>
+							<td><input name="title" type="text"></input></td>
+							<td><input name="content" type="text"></input></td>
+							<td>
+								<ul class="button-group">
+									<li><button name="edit-button" class="button" type="submit">edit</button></li>
+									<li><button name="remove-button" class="button" type="submit">remove</button></li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<span id="emptyNotice" class="label">no articles found.</span>
+			</div>
+        </form>
+    </section>
+    
+</div>      
+</body>
+</html>
+
