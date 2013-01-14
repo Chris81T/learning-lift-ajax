@@ -1,13 +1,10 @@
 package bootstrap.liftweb
 
 import net.liftweb._
-import util._
-import Helpers._
 
 import common._
 import http._
 import sitemap._
-import Loc._
 
 /**
  * FLEX MENU BUILDER have a look for it -- Diego Medina
@@ -29,12 +26,12 @@ class Boot {
 
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
-    LiftRules.setSiteMap(SiteMap(entries:_*))
+    LiftRules.setSiteMap(SiteMap(entries: _*))
 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
       Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
-    
+
     // Make the spinny image go away when it ends
     LiftRules.ajaxEnd =
       Full(() => LiftRules.jsArtifacts.hide("ajax-loader").cmd)
