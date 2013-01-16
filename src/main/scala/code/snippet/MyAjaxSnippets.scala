@@ -29,7 +29,7 @@ object CreateArticle {
       Articles.add(Article(Articles.generateId, title, content))
 
 
-      EditArticles.idMem.setHtml() &
+      EditArticles.tableIdMem.get.setHtml() &
         JE.JsRaw(""" $("input[name='title']").val("") """).cmd &
         JE.JsRaw(""" $("textarea[name='content']").val("") """).cmd
     }
@@ -38,12 +38,12 @@ object CreateArticle {
 
 object EditArticles {
 
-  var idMem : IdMemoizeTransform = null // TODO find a may better solution for it
+  object tableIdMem extends RequestVar[IdMemoizeTransform](null)
 
   def render = {
     SHtml.idMemoize {
       table =>
-      idMem = table // TODO find a better solution for it
+      tableIdMem.apply(table)
       val articles = Articles.getArticlesList
       println("found articles-size=" + articles.size)
 
@@ -94,7 +94,7 @@ object EditArticles {
       JE.JsRaw(""" $("#%s").remove() """.format(article.id)).cmd
     } else {
       println("while list is empty, rerender the whole fragment to show an emptyNotice")
-      idMem.setHtml()
+      tableIdMem.get.setHtml()
     }
   }
 
