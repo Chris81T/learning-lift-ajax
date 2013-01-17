@@ -1,6 +1,7 @@
 package code.snippet
 
 import net.liftweb._
+import common.{Full, Box, Empty}
 import http._
 import js.{JsCmds, JsCmd, JE}
 import JsCmds._
@@ -29,7 +30,7 @@ object CreateArticle {
       Articles.add(Article(Articles.generateId, title, content))
 
 
-      EditArticles.tableIdMem.get.setHtml() &
+      EditArticles.tableIdMem.get.get.setHtml() &
         JE.JsRaw(""" $("input[name='title']").val("") """).cmd &
         JE.JsRaw(""" $("textarea[name='content']").val("") """).cmd
     }
@@ -38,12 +39,12 @@ object CreateArticle {
 
 object EditArticles {
 
-  object tableIdMem extends RequestVar[IdMemoizeTransform](null)
+  object tableIdMem extends RequestVar[Box[IdMemoizeTransform]](Empty)
 
   def render = {
     SHtml.idMemoize {
       table =>
-      tableIdMem.apply(table)
+      tableIdMem.apply(Full(table))
       val articles = Articles.getArticlesList
       println("found articles-size=" + articles.size)
 
@@ -94,7 +95,7 @@ object EditArticles {
       JE.JsRaw(""" $("#%s").remove() """.format(article.id)).cmd
     } else {
       println("while list is empty, rerender the whole fragment to show an emptyNotice")
-      tableIdMem.get.setHtml()
+      tableIdMem.get.get.setHtml()
     }
   }
 
